@@ -20,12 +20,23 @@ const db = mysql.createConnection({
 
 const app = express();
 
+//create database
 app.get('/api/createdb', (req, res) => {
     let sql = 'CREATE DATABASE wootlab';
     db.query(sql, (err, result) => {
         if(err) throw err;
         console.log(result);
         res.send('database created..');
+    });
+});
+
+//create table
+app.get('/api/createposttable', (req,res) => {
+    let sql = 'CREATE TABLE items(id int AUTO_INCREMENT, title VARCHAR(255), body VARCHAR(255), image TEXT, date DATE, PRIMARY KEY (id))';
+    db.query(sql, (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        res.send('table created..');
     });
 });
 

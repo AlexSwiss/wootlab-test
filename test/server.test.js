@@ -11,10 +11,27 @@ describe('Products', () => {
         .end((err, res) => {
             res.should.have.status(200);
             res.should.be.json;
-            res.body.should.be.a('array');
+            //res.body.should.be.a('array');
             done();
         });
     });
 
+    it("it should add a single product on items/additem", (done) => {
+        chai.request('http://localhost:5000')
+        .post('/item/additem')
+        .send({
+            "title": "jean", 
+            "body": "a blue denim jean", 
+            "price": "N2000",
+            "quantity": "5"
+        })
+        .end((err, res) => {
+            res.should.have.status(200);
+            res.should.be.json;
+            done();
 
+        });
+    });
+    it("it should get update a single product ");
+    it("it should delete a single product");
 });

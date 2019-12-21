@@ -10,7 +10,7 @@ router.get('/additem', (req, res) => {
             title: 'Beach shirt with quality design', 
             body: 'strong quality shirt for beach size SM',
             price: 'N1500',
-            date: "20/11/21"
+            quantity: "4"
         };
     let sql = 'INSERT INTO items SET ?';
     let query = db.query(sql, item, (err, result) => {

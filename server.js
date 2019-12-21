@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+const cors = require('cors');
 const mysql = require('mysql');
 
 const items = require('./routes/api/items');
@@ -12,6 +14,8 @@ const app = express();
 
 //use middlewares
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 //create database
 app.get('/admin/createdb', (req, res) => {
@@ -33,7 +37,7 @@ app.get('/admin/createposttable', (req,res) => {
     });
 });
 
-app.use('/items', items);
+app.use('/api/items', items);
 
 port = 5000;
 

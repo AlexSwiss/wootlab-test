@@ -4,24 +4,17 @@ const mysql = require('mysql');
 
 const items = require('./routes/api/items');
 
-//database connection
-const db = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : '',
-    database : 'wootlab'
-  });
+//connect database file
+const db = require('./conn');
 
-  db.connect((err) => {
-      if(err) {
-          throw err;
-      } console.log('Database connected..')
-  })
 
 const app = express();
 
+//use middlewares
+app.use(bodyParser.json());
+
 //create database
-app.get('/api/createdb', (req, res) => {
+app.get('/admin/createdb', (req, res) => {
     let sql = 'CREATE DATABASE wootlab';
     db.query(sql, (err, result) => {
         if(err) throw err;
@@ -31,8 +24,8 @@ app.get('/api/createdb', (req, res) => {
 });
 
 //create table
-app.get('/api/createposttable', (req,res) => {
-    let sql = 'CREATE TABLE items(id int AUTO_INCREMENT, title VARCHAR(255), body VARCHAR(255), image TEXT, date DATE, PRIMARY KEY (id))';
+app.get('/admin/createposttable', (req,res) => {
+    let sql = 'CREATE TABLE items(id int AUTO_INCREMENT, title VARCHAR(255), body VARCHAR(255), price VARCHAR(255), image TEXT, date DATE, PRIMARY KEY (id))';
     db.query(sql, (err, result) => {
         if(err) throw err;
         console.log(result);
@@ -40,7 +33,7 @@ app.get('/api/createposttable', (req,res) => {
     });
 });
 
-//app.use('/items', items);
+app.use('/items', items);
 
 port = 5000;
 

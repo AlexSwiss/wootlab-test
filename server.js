@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
-const jwt = require('jsonwebtoken');
-const cors = require('cors');
+//const jwt = require('jsonwebtoken');
+//const cors = require('cors');
 const mysql = require('mysql');
 const paypal = require('paypal-rest-sdk');
 

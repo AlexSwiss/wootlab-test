@@ -6,8 +6,8 @@ Router.get('/payment/create', function(req, res){
     var payReq = JSON.stringify({
         'intent':'sale',
         'redirect_urls':{
-            'return_url':'http://localhost:3000/process',
-            'cancel_url':'http://localhost:3000/cancel'
+            'return_url':'http://localhost:5000/payment/process',
+            'cancel_url':'http://localhost:5000/payment/cancel'
         },
         'payer':{
             'payment_method':'paypal'
@@ -60,3 +60,5 @@ Router.get('payment/process', function(req, res){
         }
     });
 });
+
+module.exports = Router;

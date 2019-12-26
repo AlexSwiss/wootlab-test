@@ -1,10 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const http = require('http');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const mysql = require('mysql');
+const paypal = require('paypal-rest-sdk');
 
 const items = require('./routes/api/items');
+const payment = require('./routes/api/paypal');
 
 //connect database file
 const db = require('./conn');
@@ -37,7 +40,21 @@ app.get('/admin/createposttable', (req,res) => {
     });
 });
 
+//paypal configuration
+const client_id = 'ARiV9dgNKmSNY0XgcrF9KXxcFXQQx8jy9CxEP4Wcc7_E_ULw3o3jFXbJJwD8P6ETrszPQWUQo4-f9QrK';
+const secret = 'EOtHJme_RQeK89uOarq8V4S9AGgMWX1OcGEtai7wZdEqRPs1b-fniCfqDMTe2sHYcl9lu9JqLIKv3Q5q';
+
+//configuration for sandbox environment
+paypal.configure({
+    'mode': 'sandbox', //sandbox or live
+    'client_id': client_id,
+    'client_secret': secret
+});
+
+
+//use routes
 app.use('/api/items', items);
+app.use('/api/payment', payment);
 
 port = 5000;
 

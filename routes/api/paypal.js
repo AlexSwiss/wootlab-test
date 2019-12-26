@@ -1,7 +1,9 @@
 const express = require('express');
 const Router = express.Router();
+const paypal = require('paypal-rest-sdk');
 
-Router.get('/payment/create', function(req, res){
+
+Router.get('/create', function(req, res){
     //build PayPal payment request
     var payReq = JSON.stringify({
         'intent':'sale',
@@ -44,7 +46,7 @@ Router.get('/payment/create', function(req, res){
     });
 });
 
-Router.get('payment/process', function(req, res){
+Router.get('/process', function(req, res){
     var paymentId = req.query.paymentId;
     var payerId = { 'payer_id': req.query.PayerID };
 

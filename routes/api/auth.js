@@ -27,4 +27,18 @@ Router.get('/login', (req, res) => {
 });
 
 
+Router.get('/register', (req, res) => {
+    let user = {
+        username: 'Alex', 
+        password: '1234',
+        email: 'alex@gmail.com',
+    };
+	let sql = 'INSERT INTO users SET ?';
+    let query = db.query(sql, user, (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        res.send('Registration succesful..');
+    });
+});
+
 module.exports = Router;

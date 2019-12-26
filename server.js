@@ -1,11 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
-//const jwt = require('jsonwebtoken');
-//const cors = require('cors');
 const mysql = require('mysql');
 const paypal = require('paypal-rest-sdk');
+const session = require('express-session');
 
+
+const auth = require('./routes/api/auth');
 const items = require('./routes/api/items');
 const payment = require('./routes/api/paypal');
 
@@ -18,6 +19,11 @@ const app = express();
 //use middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
 
 
 //create database
@@ -53,6 +59,7 @@ paypal.configure({
 
 
 //use routes
+app.use('/auth', auth);
 app.use('/api/items', items);
 app.use('/api/payment', payment);
 

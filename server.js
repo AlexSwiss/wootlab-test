@@ -8,11 +8,12 @@ const session = require('express-session');
 
 const auth = require('./routes/api/auth');
 const items = require('./routes/api/items');
+const cart = require('./routes/api/cart');
 const payment = require('./routes/api/paypal');
+const mailer = require('./routes/api/mailer');
 
 //connect database file
 const db = require('./conn');
-
 
 const app = express();
 
@@ -24,7 +25,6 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
-
 
 //create database
 app.get('/admin/createdb', (req, res) => {
@@ -52,7 +52,7 @@ const secret = 'EOtHJme_RQeK89uOarq8V4S9AGgMWX1OcGEtai7wZdEqRPs1b-fniCfqDMTe2sHY
 
 //configuration for sandbox environment
 paypal.configure({
-    'mode': 'sandbox', //sandbox or live
+    'mode': 'sandbox', 
     'client_id': client_id,
     'client_secret': secret
 });
@@ -61,7 +61,9 @@ paypal.configure({
 //use routes
 app.use('/auth', auth);
 app.use('/api/items', items);
+app.use('/api/cart', cart);
 app.use('/api/payment', payment);
+app.use('/api/mailer', mailer);
 
 port = 5000;
 

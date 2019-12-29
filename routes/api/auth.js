@@ -5,7 +5,7 @@ const Router = express.Router();
 
 const db = require('../../conn');
 
-
+//login an existing user
 Router.get('/login', (req, res) => {
 	var username = req.body.username;
 	var password = req.body.password;
@@ -26,12 +26,12 @@ Router.get('/login', (req, res) => {
 	}
 });
 
-
+//register a new user
 Router.get('/register', (req, res) => {
     let user = {
-        username: 'Alex', 
-        password: '1234',
-        email: 'alex@gmail.com',
+        username: 'wootlab', 
+        password: '4321',
+        email: 'wootlab@wootlab.com',
     };
 	let sql = 'INSERT INTO users SET ?';
     let query = db.query(sql, user, (err, result) => {

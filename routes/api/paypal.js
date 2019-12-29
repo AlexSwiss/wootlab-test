@@ -3,7 +3,7 @@ const Router = express.Router();
 const paypal = require('paypal-rest-sdk');
 
 
-Router.get('/create', function(req, res){
+Router.get('/create', (req, res) => {
     //build PayPal payment request
     var payReq = JSON.stringify({
         'intent':'sale',
@@ -23,18 +23,18 @@ Router.get('/create', function(req, res){
         }]
     });
 
-    paypal.payment.create(payReq, function(error, payment){
+    paypal.payment.create(payReq, (error, payment) => {
         if(error){
             console.error(error);
         } else {
             //capture HATEOAS links
             var links = {};
-            payment.links.forEach(function(linkObj){
+            payment.links.forEach((linkObj) => {
                 links[linkObj.rel] = {
                     'href': linkObj.href,
                     'method': linkObj.method
                 };
-            })
+            });
         
             //if redirect url present, redirect user
             if (links.hasOwnProperty('approval_url')){
